@@ -1,0 +1,65 @@
+<div class="home-container">
+  <section class="hero">
+    <div class="background-shape">
+      <img [src]="'/assets/images/fotomia.png'" alt="mi-profile" class="profile-image">
+    </div>
+    <div class="hero-content">
+      <div class="text-content">
+        <h1>
+          <span class="im">I'm a</span>
+          <span class="role">Developer and Designer</span>
+        </h1>
+        <p class="subtitle">If you can dream it, you can build it!</p>
+        <div class="hero-buttons">
+          <a class="btn primary" routerLink="/contact">GET STARTED</a>
+          <a class="btn secondary" routerLink="/projects">VIEW PORTFOLIO</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-preview">
+    <div class="about-content">
+      <h2>Sobre Mí</h2>
+      <p>Soy un desarrollador web apasionado por crear experiencias digitales excepcionales. Me especializo en el desarrollo frontend y backend, con un fuerte enfoque en tecnologías modernas.</p>
+      
+      <div class="features">
+        <div class="feature-card">
+          <lucide-angular [name]="codeIcon" class="feature-icon"></lucide-angular>
+          <h3>Desarrollo Clean</h3>
+          <p>Código limpio y mantenible</p>
+        </div>
+        <div class="feature-card">
+          <lucide-angular [name]="brainIcon" class="feature-icon"></lucide-angular>
+          <h3>Soluciones Inteligentes</h3>
+          <p>Enfoque analítico a problemas</p>
+        </div>
+        <div class="feature-card">
+          <lucide-angular [name]="rocketIcon" class="feature-icon"></lucide-angular>
+          <h3>Performance</h3>
+          <p>Optimización y velocidad</p>
+        </div>
+        <div class="feature-card">
+          <lucide-angular [name]="coffeeIcon" class="feature-icon"></lucide-angular>
+          <h3>Dedicación</h3>
+          <p>Compromiso con cada proyecto</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="skills">
+    <h2>Mis Habilidades</h2>
+    <div class="skill-bars">
+      <div class="skill" *ngFor="let skill of skills">
+        <div class="skill-info">
+          <span class="skill-name">{{skill.name}}</span>
+          <span class="skill-percentage">{{skill.level}}%</span>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-level" [style.width.%]="skill.level"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

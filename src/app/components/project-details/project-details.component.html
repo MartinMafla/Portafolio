@@ -1,0 +1,58 @@
+<div class="project-details-container">
+  <section class="project-hero">
+    <img [src]="project.coverImage" [alt]="project.title" class="project-hero-image">
+    <div class="hero-overlay"></div>
+    <div class="project-hero-content">
+      <h1>{{project.title}}</h1>
+      <p class="project-subtitle">{{project.description}}</p>
+    </div>
+  </section>
+
+  <div class="project-content">
+    <div class="project-card">
+      <div class="section-grid">
+        <div class="main-content">
+          <div class="description-section">
+            <h2>Descripción del Proyecto</h2>
+            <p>{{project.longDescription}}</p>
+          </div>
+
+          <div class="features-section">
+            <h2>Características Principales</h2>
+            <ul class="features-list">
+              <li *ngFor="let feature of project.features">
+                <lucide-angular name="check-circle" class="feature-icon"></lucide-angular>
+                <span>{{feature}}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="sidebar-content">
+          <div class="info-card">
+            <h2>Detalles del Proyecto</h2>
+            <div class="details-list">
+              <div class="detail-item" *ngFor="let detail of projectDetails">
+                <span class="detail-label">{{detail.label}}</span>
+                <span class="detail-value">{{detail.value}}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <h2>Tecnologías Utilizadas</h2>
+            <div class="technologies-used">
+              <span class="tech-tag" *ngFor="let tech of project.technologies">
+                {{tech}}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="back-button" (click)="goBack()">
+    <lucide-angular name="arrow-left" size="24"></lucide-angular>
+  </div>
+</div>

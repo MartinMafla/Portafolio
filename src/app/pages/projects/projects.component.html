@@ -1,0 +1,16 @@
+<div class="projects-container">
+  <section class="projects-hero">
+    <div class="hero-text">
+      <h1>Mis Proyectos</h1>
+      <p>Una muestra de mi trabajo y experiencia</p>
+    </div>
+  </section>
+
+  <div class="projects-grid">
+    <app-project-card 
+      *ngFor="let project of projects" 
+      [project]="project"
+      (click)="openProjectDetails(project)">
+    </app-project-card>
+  </div>
+</div>

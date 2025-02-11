@@ -1,0 +1,56 @@
+
+<section class="about-section">
+  <div class="about-header">
+    <div class="about-image-container">
+      <img src="assets/images/aboutmebanner.png" alt="Profile" class="about-image">
+    </div>
+    <div class="about-intro">
+      <h2>Sobre Mí</h2>
+      <p class="lead-text">
+        Soy un desarrollador fullstack apasionado por crear soluciones digitales innovadoras. 
+        Con más de 3 años de experiencia, me especializo en desarrollo web y móvil, 
+        siempre buscando nuevas formas de mejorar la experiencia del usuario.
+      </p>
+      <a routerLink="/contact" class="contact-btn">
+        Ponte en contacto
+        <mat-icon>arrow_forward</mat-icon>
+      </a>
+    </div>
+  </div>
+
+  <div class="services-section">
+    <h3>Mis Servicios</h3>
+    <div class="services-grid">
+      <div class="service-card" *ngFor="let service of services">
+        <mat-icon class="service-icon">{{service.icon}}</mat-icon>
+        <h4>{{service.title}}</h4>
+        <p>{{service.description}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tech-stack">
+    <h3>Stack Tecnológico</h3>
+    <div class="tech-grid">
+      <div class="tech-item" *ngFor="let tech of technologies">
+        <i [class]="tech.icon"></i>
+        <span class="tech-name">{{tech.name}}</span>
+        <div class="tech-level">
+          <div class="level-bar" [style.width.%]="tech.level"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<div class="stats-main">
+  <h3>Caracterísitcas</h3>
+  <div class="stats-section">
+    <div class="stat-card" *ngFor="let stat of stats">
+      <h3 class="stat-number">{{stat.number}}</h3>
+      <p class="stat-label">{{stat.label}}</p>
+    </div>
+  </div>
+</div>
+  
+</section>

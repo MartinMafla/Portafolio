@@ -1,0 +1,170 @@
+.project-hero {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  background-color: #6c5ce7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.project-hero-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.3;
+}
+
+.project-hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+  padding: 0 2rem;
+  
+  h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .project-subtitle {
+    font-size: 1.5rem;
+    opacity: 0.9;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-meta {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    
+    span {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+  }
+}
+
+.project-content {
+  max-width: 1200px;
+  margin: -50px auto 0;
+  padding: 2rem;
+  position: relative;
+  z-index: 3;
+}
+
+.project-card {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.project-info {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+.features-section {
+  margin-top: 2rem;
+  
+  h2 {
+    color: #2d3436;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #eee;
+    
+    .feature-icon {
+      color: #6c5ce7;
+    }
+
+    span {
+      color: #666;
+    }
+  }
+}
+
+.details-section {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  
+  h3 {
+    color: #6c5ce7;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  
+  .detail-item {
+    .detail-label {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 0.25rem;
+      display: block;
+    }
+    
+    .detail-value {
+      font-weight: 500;
+      color: #2d3436;
+    }
+  }
+}
+
+.technologies-used {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  
+  .tech-tag {
+    background: white;
+    color: #6c5ce7;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid #6c5ce7;
+  }
+}
+
+@media (max-width: 768px) {
+  .project-hero-content h1 {
+    font-size: 2.5rem;
+  }
+  
+  .project-info {
+    grid-template-columns: 1fr;
+  }
+  
+  .project-content {
+    padding: 1rem;
+  }
+  
+  .project-card {
+    padding: 1.5rem;
+  }
+}

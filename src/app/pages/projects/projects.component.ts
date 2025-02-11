@@ -63,7 +63,7 @@ export class ProjectsComponent {
       id: 7,
       title: 'Fortia',
       description: 'Pagina web para una empresa de consultorías.',
-      image: '/assets/images/dashboardtechby.png',
+      image: '/assets/images/fortia.png',
       technologies: ['Figma', 'Wordpress']
     },
     {

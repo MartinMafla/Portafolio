@@ -305,3 +305,113 @@
     transition: color 0.3s ease;
   }
 }
+
+.tech-category {
+  margin-bottom: 3rem;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .category-title {
+    font-size: 1.8rem;
+    color: var(--light-text);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: var(--gradient-bg);
+      border-radius: 3px;
+    }
+  }
+
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto 2rem;
+  }
+}
+
+.tech-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 1rem;
+  background: var(--card-bg);
+  border-radius: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover i {
+    transform: scale(1.2);
+  }
+  
+  .tech-name {
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    color: var(--light-text);
+  }
+  
+  .tech-level {
+    width: 100%;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    
+    .level-bar {
+      height: 100%;
+      background: var(--gradient-bg);
+      border-radius: 3px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .tech-category .tech-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+  
+  .tech-item i {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tech-category .tech-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .service-card {
+    padding: 1.5rem;
+  }
+  
+  .about-image-container {
+    flex: 0 0 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}

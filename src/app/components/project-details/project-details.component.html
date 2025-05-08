@@ -1,4 +1,6 @@
+<!-- project-details.component.html -->
 <div class="project-details-container">
+  <!-- Hero Section -->
   <section class="project-hero">
     <img [src]="project.coverImage" [alt]="project.title" class="project-hero-image">
     <div class="hero-overlay"></div>
@@ -10,13 +12,16 @@
 
   <div class="project-content">
     <div class="project-card">
+      <!-- Información básica del proyecto en formato grid -->
       <div class="section-grid">
         <div class="main-content">
+          <!-- Descripción general del proyecto -->
           <div class="description-section">
             <h2>Descripción del Proyecto</h2>
             <p>{{project.longDescription}}</p>
           </div>
 
+          <!-- Características principales en lista -->
           <div class="features-section">
             <h2>Características Principales</h2>
             <ul class="features-list">
@@ -28,7 +33,9 @@
           </div>
         </div>
 
+        <!-- Sidebar con detalles técnicos y tecnologías -->
         <div class="sidebar-content">
+          <!-- Detalles del proyecto en card -->
           <div class="info-card">
             <h2>Detalles del Proyecto</h2>
             <div class="details-list">
@@ -39,6 +46,7 @@
             </div>
           </div>
 
+          <!-- Tecnologías utilizadas en tags -->
           <div class="info-card">
             <h2>Tecnologías Utilizadas</h2>
             <div class="technologies-used">
@@ -49,10 +57,24 @@
           </div>
         </div>
       </div>
+
+      <!-- Galería de imágenes del proyecto -->
+      <app-project-gallery 
+        *ngIf="project.gallery && project.gallery.length > 0"
+        [images]="project.gallery">
+      </app-project-gallery>
+
+      <!-- Caso de estudio del proyecto -->
+      <app-project-case-study 
+        *ngIf="project.caseStudy"
+        [caseStudy]="project.caseStudy">
+      </app-project-case-study>
     </div>
   </div>
 
+  <!-- Botón para volver -->
   <div class="back-button" (click)="goBack()">
     <lucide-angular name="arrow-left" size="24"></lucide-angular>
+    <span>Volver a proyectos</span>
   </div>
 </div>

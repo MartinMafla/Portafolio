@@ -1,1 +1,72 @@
-<p>contact works!</p>
+<div class="contact-container">
+  <!-- Hero Banner -->
+  <section class="contact-hero">
+    <div class="hero-content">
+      <h1>Contáctame</h1>
+      <p>El primer paso para hacer realidad tus ideas es ponerte en contacto conmigo</p>
+    </div>
+  </section>
+  
+  <!-- Formulario de Contacto -->
+  <div class="contact-form-container">
+    <form class="contact-form" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+      <h2 class="form-title">¿Listo para colaborar?</h2>
+      <p class="form-subtitle">Completa el formulario y me pondré en contacto contigo lo antes posible para discutir tu proyecto.</p>
+      
+      <div class="form-group">
+        <label for="name">Nombre</label>
+        <input id="name" type="text" formControlName="name" placeholder="Tu nombre">
+        <div class="error-message" *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched">
+          El nombre es requerido
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email" placeholder="tu.email&#64;ejemplo.com">
+        <div class="error-message" *ngIf="contactForm.get('email')?.errors?.['required'] && contactForm.get('email')?.touched">
+          El email es requerido
+        </div>
+        <div class="error-message" *ngIf="contactForm.get('email')?.errors?.['email'] && contactForm.get('email')?.touched">
+          Por favor ingresa un email válido
+        </div>
+      </div>
+      
+      <div class="form-group full-width">
+        <label for="message">Mensaje</label>
+        <textarea id="message" formControlName="message" placeholder="Cuéntame sobre tu proyecto o idea..."></textarea>
+        <div class="error-message" *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched">
+          El mensaje es requerido
+        </div>
+      </div>
+      
+      <button type="submit" [disabled]="!contactForm.valid">
+        Enviar Mensaje
+      </button>
+    </form>
+  </div>
+  
+  <!-- Información de contacto adicional -->
+  <div class="contact-info container">
+    <div class="info-card">
+      <i class="info-icon material-icons">email</i>
+      <h3>Email</h3>
+      <p>¿Prefieres enviarme un correo directamente?</p>
+      <a href="mailto:tu.email&#64;ejemplo.com">tu.email&#64;ejemplo.com</a>
+    </div>
+    
+    <div class="info-card">
+      <i class="info-icon material-icons">location_on</i>
+      <h3>Ubicación</h3>
+      <p>Quito, Ecuador</p>
+      <p>Disponible para proyectos remotos en todo el mundo</p>
+    </div>
+    
+    <div class="info-card">
+      <i class="info-icon material-icons">schedule</i>
+      <h3>Horario</h3>
+      <p>Lunes - Viernes: 9am - 6pm</p>
+      <p>Respuesta promedio: 24h</p>
+    </div>
+  </div>
+</div>

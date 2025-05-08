@@ -1,4 +1,3 @@
-
 <section class="about-section">
   <div class="about-header">
     <div class="about-image-container">
@@ -31,26 +30,18 @@
 
   <div class="tech-stack">
     <h3>Stack Tecnológico</h3>
-    <div class="tech-grid">
-      <div class="tech-item" *ngFor="let tech of technologies">
-        <i [class]="tech.icon"></i>
-        <span class="tech-name">{{tech.name}}</span>
-        <div class="tech-level">
-          <div class="level-bar" [style.width.%]="tech.level"></div>
+    
+    <div *ngFor="let category of techCategories" class="tech-category">
+      <h4 class="category-title">{{category.name}}</h4>
+      <div class="tech-grid">
+        <div class="tech-item" *ngFor="let tech of category.technologies">
+          <i [class]="tech.icon"></i>
+          <span class="tech-name">{{tech.name}}</span>
+          <div class="tech-level">
+            <div class="level-bar" [style.width.%]="tech.level"></div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
-
-<div class="stats-main">
-  <h3>Caracterísitcas</h3>
-  <div class="stats-section">
-    <div class="stat-card" *ngFor="let stat of stats">
-      <h3 class="stat-number">{{stat.number}}</h3>
-      <p class="stat-label">{{stat.label}}</p>
-    </div>
-  </div>
-</div>
-  
 </section>

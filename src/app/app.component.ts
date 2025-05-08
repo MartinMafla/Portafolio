@@ -17,7 +17,6 @@ import { CommonModule } from '@angular/common';
         <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Inicio</a></li>
         <li><a routerLink="/about" routerLinkActive="active">Sobre Mí</a></li>
         <li><a routerLink="/projects" routerLinkActive="active">Proyectos</a></li>
-        <li><a routerLink="/education" routerLinkActive="active">Educación</a></li>
         <li><a routerLink="/contact" routerLinkActive="active">Contacto</a></li>
       </ul>
     </nav>

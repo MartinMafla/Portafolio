@@ -29,10 +29,6 @@ export const routes: Routes = [
     component: ContactComponent
   },
   {
-    path: 'education',
-    component: EducationComponent
-  },
-  {
     path: '**',
     redirectTo: ''
   }

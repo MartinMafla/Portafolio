@@ -61,7 +61,7 @@ export class ProjectDetailsComponent implements OnInit {
       title: 'U-learn',
       description: 'Aplicación híbrida para tutorías estudiantiles',
       longDescription: 'La aplicación U-learn será una herramienta para el Learning Center que ya existe en la Universidad San Francisco de Quito, y por ende la paga de los tutores seguirá siendo por parte de la Universidad, la app se encarga de brindar por donde tener las reuniones, documentación profunda y revisada por profesionales de cualquier clase, y eventos. Nosotros como empresas encontraremos eventos de todo tipo de carreras, ya sean dentro de la Universidad San Francisco o afuera, creando conexiones y brindando la mejor experiencia para los usuarios.',
-      coverImage: '/assets/images/mockups.png',
+      coverImage: 'assets/images/mockups.png',
       date: new Date(),
       category: 'Aplicación Híbrida',
       technologies: ['Angular', 'TypeScript', 'Ionic', 'Firebase', 'Node.js'],

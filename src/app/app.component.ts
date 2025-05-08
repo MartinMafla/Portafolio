@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -7,7 +7,12 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
   template: `
-    <nav class="navbar">
+    <nav class="navbar" [class.scrolled]="isScrolled">
+      <div class="logo">
+        <a routerLink="/">
+          <img src="assets/images/logo-v1.png" alt="Logo">
+        </a>
+      </div>
       <ul>
         <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Inicio</a></li>
         <li><a routerLink="/about" routerLinkActive="active">Sobre Mí</a></li>
@@ -20,9 +25,14 @@ import { CommonModule } from '@angular/common';
     <main>
       <router-outlet></router-outlet>
     </main>
-  `,
-  styleUrl: './app.component.scss'
+  `
 })
 export class AppComponent {
   title = 'mi-portafolio';
+  isScrolled = false;
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.isScrolled = window.scrollY > 50;
+  }
 }

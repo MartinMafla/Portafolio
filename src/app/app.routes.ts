@@ -1,11 +1,39 @@
 import { Routes } from '@angular/router';
+import { HomeComponent } from './pages/home/home.component';
+import { AboutComponent } from './pages/about/about.component';
+import { ProjectsComponent } from './pages/projects/projects.component';
+
+import { ContactComponent } from './pages/contact/contact.component';
+import { EducationComponent } from './pages/education/education.component';
+import { ProjectDetailsComponent } from './components/project-details/project-details.component';
 
 export const routes: Routes = [
-  { path: '', loadComponent: () => import('./pages/home/home.component').then(m => m.HomeComponent) },
-  { path: 'about', loadComponent: () => import('./pages/about/about.component').then(m => m.AboutComponent) },
-  { path: 'projects', loadComponent: () => import('./pages/projects/projects.component').then(m => m.ProjectsComponent) },
-  { path: 'projects/:id', loadComponent: () => import('./components/project-details/project-details.component').then(m => m.ProjectDetailsComponent) },
-  { path: 'education', loadComponent: () => import('./pages/education/education.component').then(m => m.EducationComponent) },
-  { path: 'contact', loadComponent: () => import('./pages/contact/contact.component').then(m => m.ContactComponent) },
-  { path: '**', redirectTo: '' }
+  {
+    path: '',
+    component: HomeComponent
+  },
+  {
+    path: 'about',
+    component: AboutComponent
+  },
+  {
+    path: 'projects',
+    component: ProjectsComponent
+  },
+  {
+    path: 'projects/:id',
+    component: ProjectDetailsComponent
+  },
+  {
+    path: 'contact',
+    component: ContactComponent
+  },
+  {
+    path: 'education',
+    component: EducationComponent
+  },
+  {
+    path: '**',
+    redirectTo: ''
+  }
 ];

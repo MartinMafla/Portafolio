@@ -1,64 +1,114 @@
 <div class="home-container">
+  <!-- Sección Hero con animación de personaje -->
   <section class="hero">
     <div class="background-shape">
-      <img [src]="'/assets/images/fotomia.png'" alt="mi-profile" class="profile-image">
+      <app-character-animation></app-character-animation>
     </div>
     <div class="hero-content">
       <div class="text-content">
         <h1>
-          <span class="im">I'm a</span>
-          <span class="role">Developer and Designer</span>
+          <span class="im">Soy</span>
+          <span class="role">Desarrollador y Diseñador</span>
         </h1>
-        <p class="subtitle">If you can dream it, you can build it!</p>
+        <p class="subtitle">¡Si puedes soñarlo, puedes construirlo!</p>
         <div class="hero-buttons">
-          <a class="btn primary" routerLink="/contact">GET STARTED</a>
-          <a class="btn secondary" routerLink="/projects">VIEW PORTFOLIO</a>
+          <a class="btn primary" routerLink="/contact">CONTACTAR</a>
+          <a class="btn secondary" routerLink="/projects">VER PORTAFOLIO</a>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="about-preview">
-    <div class="about-content">
-      <h2>Sobre Mí</h2>
-      <p>Soy un desarrollador web apasionado por crear experiencias digitales excepcionales. Me especializo en el desarrollo frontend y backend, con un fuerte enfoque en tecnologías modernas.</p>
+  <!-- Nueva sección de estadísticas con contador de años de experiencia -->
+  <section class="stats-section">
+    <div class="container">
+      <h2 class="section-title">Experiencia Profesional</h2>
+      <p class="section-subtitle">Datos importantes sobre mi trayectoria</p>
       
-      <div class="features">
+      <div class="stats-grid">
+        <div class="stat-item" *ngFor="let stat of stats">
+          <div class="stat-number">{{ stat.number }}</div>
+          <div class="stat-label">{{ stat.label }}</div>
+        </div>
+      </div>
+
+      <div class="cta-container">
+        <a routerLink="/about" class="cta-button">CONOCE MÁS SOBRE MÍ</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección de habilidades tecnológicas con layout mejorado de 2 columnas -->
+  <section class="skills-section">
+    <div class="container">
+      <h2 class="section-title">Mis Habilidades</h2>
+      <p class="section-subtitle">Tecnologías con las que trabajo</p>
+      
+      <div class="tech-grid">
+        <div class="tech-info">
+          <h3>Especialización</h3>
+          <p>Soy un desarrollador Full Stack con enfoque en Frontend, apasionado por crear soluciones digitales innovadoras. Trabajo con las tecnologías más modernas para construir aplicaciones web y móviles atractivas y funcionales.</p>
+          
+          <div class="specialties">
+            <div class="specialty-item">
+              <h4>Frontend Development</h4>
+              <p>Creación de interfaces modernas y responsivas con Angular, React y Vue. Experiencia en arquitecturas complejas y optimización de rendimiento.</p>
+            </div>
+            
+            <div class="specialty-item">
+              <h4>Backend Development</h4>
+              <p>Desarrollo de APIs robustas y escalables con Node.js, Express y bases de datos relacionales y NoSQL.</p>
+            </div>
+            
+            <div class="specialty-item">
+              <h4>UI/UX Design</h4>
+              <p>Diseño de experiencias de usuario centradas en la usabilidad y estética siguiendo las últimas tendencias de diseño.</p>
+            </div>
+          </div>
+          
+          <div class="cta-container tech-cta">
+            <a routerLink="/projects" class="cta-button">EXPLORAR PROYECTOS</a>
+          </div>
+        </div>
+        
+        <div class="tech-sphere-wrapper">
+          <app-tech-sphere></app-tech-sphere>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección de características profesionales -->
+  <section class="features-section">
+    <div class="container">
+      <h2 class="section-title">Características Profesionales</h2>
+      <p class="section-subtitle">Lo que me diferencia como desarrollador</p>
+      
+      <div class="features-grid">
         <div class="feature-card">
           <lucide-angular [name]="codeIcon" class="feature-icon"></lucide-angular>
-          <h3>Desarrollo Clean</h3>
-          <p>Código limpio y mantenible</p>
+          <h3>Desarrollo Limpio</h3>
+          <p>Código limpio y mantenible siguiendo las mejores prácticas y patrones de diseño actuales</p>
         </div>
         <div class="feature-card">
           <lucide-angular [name]="brainIcon" class="feature-icon"></lucide-angular>
           <h3>Soluciones Inteligentes</h3>
-          <p>Enfoque analítico a problemas</p>
+          <p>Enfoque analítico para resolver problemas complejos de manera eficiente y elegante</p>
         </div>
         <div class="feature-card">
           <lucide-angular [name]="rocketIcon" class="feature-icon"></lucide-angular>
-          <h3>Performance</h3>
-          <p>Optimización y velocidad</p>
+          <h3>Rendimiento Óptimo</h3>
+          <p>Optimización de rendimiento y velocidad en cada proyecto para una experiencia excepcional</p>
         </div>
         <div class="feature-card">
           <lucide-angular [name]="coffeeIcon" class="feature-icon"></lucide-angular>
-          <h3>Dedicación</h3>
-          <p>Compromiso con cada proyecto</p>
+          <h3>Dedicación Total</h3>
+          <p>Compromiso completo con cada proyecto y atención meticulosa a todos los detalles</p>
         </div>
       </div>
-    </div>
-  </section>
 
-  <section class="skills">
-    <h2>Mis Habilidades</h2>
-    <div class="skill-bars">
-      <div class="skill" *ngFor="let skill of skills">
-        <div class="skill-info">
-          <span class="skill-name">{{skill.name}}</span>
-          <span class="skill-percentage">{{skill.level}}%</span>
-        </div>
-        <div class="skill-bar">
-          <div class="skill-level" [style.width.%]="skill.level"></div>
-        </div>
+      <div class="cta-container">
+        <a routerLink="/contact" class="cta-button">TRABAJEMOS JUNTOS</a>
       </div>
     </div>
   </section>

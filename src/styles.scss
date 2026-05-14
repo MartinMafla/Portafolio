@@ -1,335 +1,370 @@
-/* Variables globales */
+/* ==========================================================================
+   DEV/CRAFT 2026 — Global Design System
+   ========================================================================== */
+
+/* ─── 1. Design Tokens ──────────────────────────────────────────────────── */
 :root {
-  --primary-color: #514BEB;
-  --secondary-color: #B4A7FF;
-  --text-color: #333;
-  --background-color: #fff;
-  --robot-background: #000000; /* Color negro para el fondo del robot */
-  --white-color: #ffffff;
+  /* Brand colors — keeping signature purple, elevated */
+  --brand: #6c5ce7;
+  --brand-bright: #8a7ef5;
+  --brand-deep: #5549c9;
+  --brand-glow: rgba(108, 92, 231, 0.45);
+
+  /* Accent colors — neon for tactile-brutalist edges */
+  --accent-violet: #c084fc;
+  --accent-cyan: #67e8f9;
+  --accent-lime: #d9f99d;
+
+  /* Surfaces — deep, almost black with violet undertones */
+  --bg-base: #0a0a0f;
+  --bg-1: #0e0e15;
+  --bg-2: #14141d;
+  --bg-3: #1c1c28;
+  --surface-glass: rgba(20, 20, 29, 0.55);
+  --surface-glass-hi: rgba(30, 30, 45, 0.7);
+
+  /* Borders — 1px solid is the 2026 signature */
+  --border-faint: rgba(255, 255, 255, 0.06);
+  --border-soft: rgba(255, 255, 255, 0.1);
+  --border-mid: rgba(255, 255, 255, 0.18);
+  --border-strong: rgba(255, 255, 255, 0.32);
+  --border-brand: rgba(108, 92, 231, 0.5);
+
+  /* Text */
+  --ink-1: #f5f5f7;
+  --ink-2: rgba(245, 245, 247, 0.78);
+  --ink-3: rgba(245, 245, 247, 0.55);
+  --ink-4: rgba(245, 245, 247, 0.35);
+
+  /* Typography */
+  --font-display: "Instrument Serif", "Times New Roman", serif;
+  --font-body: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+
+  /* Motion */
+  --ease-snap: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-flow: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Layout */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-pill: 999px;
+
+  --container-max: 1440px;
+  --container-pad: clamp(1.25rem, 4vw, 3rem);
 }
 
-/* Reset básico */
-* {
+/* ─── 2. Reset ──────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-size-adjust: 100%;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  line-height: 1.6;
-  color: var(--text-color);
+  font-family: var(--font-body);
+  font-feature-settings: "ss01", "cv11";
+  background: var(--bg-base);
+  color: var(--ink-1);
+  line-height: 1.5;
+  min-height: 100vh;
   overflow-x: hidden;
-  width: 100%;
+  cursor: none; /* custom cursor will replace */
 }
 
-/* Navbar */
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: transparent;
-  z-index: 1000;
-  transition: all 0.3s ease;
+/* Show native cursor on touch devices */
+@media (hover: none) {
+  body { cursor: auto; }
 }
 
-.navbar .logo {
-  display: flex;
-  align-items: center;
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
 
-.navbar .logo img {
-  height: 40px;
-  width: auto;
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: none;
 }
 
-.navbar ul {
-  display: flex;
-  list-style: none;
-  gap: 2rem;
-  margin-left: auto; /* Empujar a la derecha */
+@media (hover: none) {
+  button, input, textarea, select { cursor: auto; }
 }
 
-.navbar a {
-  color: white;
+a {
+  color: inherit;
   text-decoration: none;
-  padding: 0.5rem 1rem;
-  font-weight: 500;
-  transition: color 0.3s ease;
-  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  cursor: none;
 }
 
-.navbar a:hover, 
-.navbar a.active {
-  color: var(--secondary-color);
+@media (hover: none) {
+  a { cursor: pointer; }
 }
 
-/* Estilo para navbar al hacer scroll */
-.navbar.scrolled {
-  background-color: #1e293b; /* Fondo oscuro */
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+ul, ol {
+  list-style: none;
 }
 
-.navbar.scrolled a {
-  color: #f8fafc; /* Texto claro */
-  text-shadow: none;
+/* ─── 3. Grain Overlay — site-wide tactile texture ──────────────────────── */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
 }
 
-.navbar.scrolled a:hover,
-.navbar.scrolled a.active {
-  color: var(--primary-color); /* Mantiene el color primario al hover */
+/* Soft brand-color glow in background */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(60vw 60vw at 15% -10%, rgba(108, 92, 231, 0.18), transparent 60%),
+    radial-gradient(50vw 50vw at 100% 100%, rgba(192, 132, 252, 0.08), transparent 60%);
 }
 
-/* También ajusta el logo para que sea visible en fondo oscuro */
-.navbar.scrolled .logo img {
-  filter: brightness(1.2); /* Hace el logo ligeramente más brillante si es necesario */
+/* ─── 4. Typography utilities ──────────────────────────────────────────── */
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
 }
 
-/* Hero section */
-.hero {
-  position: relative;
+.mono {
+  font-family: var(--font-mono);
+  font-feature-settings: "ss02", "ss03";
+  letter-spacing: 0;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--ink-3);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand);
+  box-shadow: 0 0 12px var(--brand-glow);
+}
+
+/* Selection */
+::selection {
+  background: var(--brand);
+  color: white;
+}
+
+/* ─── 5. Layout primitives ──────────────────────────────────────────────── */
+.container {
   width: 100%;
-  height: 100vh;
-  background: white;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding-inline: var(--container-pad);
 }
 
-.background-shape {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 50%;
-  height: 100%;
-  background: var(--robot-background); /* Fondo negro puro */
-  clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.hero-content {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 0 5rem;
+main {
   position: relative;
   z-index: 2;
+  min-height: 100vh;
 }
 
-.text-content {
-  max-width: 600px;
-  margin-right: 5rem;
+/* ─── 6. Scrollbar ──────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
 }
 
-.text-content h1 {
-  font-size: 4.5rem;
-  line-height: 1.1;
-  margin-bottom: 1.5rem;
+::-webkit-scrollbar-track {
+  background: var(--bg-1);
 }
 
-.text-content h1 .im {
-  display: block;
-  font-size: 3rem;
-  opacity: 0.7;
-  font-weight: normal;
-  margin-bottom: 0.5rem;
-  color: var(--text-color);
+::-webkit-scrollbar-thumb {
+  background: var(--border-mid);
+  border-radius: 999px;
+  border: 2px solid var(--bg-1);
 }
 
-.text-content h1 .role {
-  font-weight: bold;
-  background: linear-gradient(to right, #333, var(--primary-color));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand);
 }
 
-.subtitle {
-  font-size: 1.25rem;
-  margin-bottom: 2.5rem;
-  color: var(--text-color);
-}
-
-.hero-buttons {
-  display: flex;
-  gap: 1.5rem;
-}
-
-.hero-buttons .btn {
-  padding: 1rem 2rem;
-  border-radius: 50px;
+/* ─── 7. Reusable button system ────────────────────────────────────────── */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.95rem 1.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
   font-weight: 500;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  cursor: pointer;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-mid);
+  background: transparent;
+  color: var(--ink-1);
+  transition: all 0.4s var(--ease-snap);
+  overflow: hidden;
+  isolation: isolate;
 }
 
-.hero-buttons .btn.primary {
-  background: var(--primary-color);
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--brand);
+  border-radius: inherit;
+  z-index: -1;
+  transform: translateY(101%);
+  transition: transform 0.5s var(--ease-snap);
+}
+
+.btn:hover::before {
+  transform: translateY(0);
+}
+
+.btn:hover {
+  border-color: var(--brand);
   color: white;
 }
 
-.hero-buttons .btn.primary:hover {
-  background-color: #4540d1;
-  transform: translateY(-2px);
+.btn--primary {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: white;
 }
 
-.hero-buttons .btn.secondary {
-  background: transparent;
-  border: 2px solid var(--primary-color);
-  color: var(--primary-color);
+.btn--primary::before {
+  background: var(--ink-1);
 }
 
-.hero-buttons .btn.secondary:hover {
-  background: rgba(81, 75, 235, 0.1);
-  transform: translateY(-2px);
+.btn--primary:hover {
+  color: var(--bg-base);
+  border-color: var(--ink-1);
 }
 
-/* Resto del contenido original */
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  padding: 2rem;
+.btn .arrow {
+  display: inline-block;
+  transition: transform 0.3s var(--ease-snap);
 }
 
-.project-card {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
-  cursor: pointer;
+.btn:hover .arrow {
+  transform: translateX(4px);
 }
 
-.project-card:hover {
-  transform: translateY(-5px);
+/* ─── 8. Glass cards ────────────────────────────────────────────────────── */
+.glass {
+  background: var(--surface-glass);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
 }
 
-.project-card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 8px 8px 0 0;
+.glass-hi {
+  background: var(--surface-glass-hi);
+  border: 1px solid var(--border-mid);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(32px) saturate(160%);
+  -webkit-backdrop-filter: blur(32px) saturate(160%);
 }
 
-.project-card .content,
-.project-card .expanded-content {
-  padding: 1rem;
+/* ─── 9. Reduced motion ─────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
-.project-card .technologies {
+/* ─── 10. Page transition wrapper ───────────────────────────────────────── */
+.page-enter {
+  animation: pageEnter 0.7s var(--ease-snap) both;
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── 11. Marquee utility ───────────────────────────────────────────────── */
+.marquee {
   display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  margin-top: 1rem;
+  overflow: hidden;
+  user-select: none;
+  gap: 0;
+  width: 100%;
 }
 
-.project-card .technologies span {
-  background: #f0f0f0;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.875rem;
+.marquee-track {
+  display: flex;
+  gap: 3rem;
+  flex-shrink: 0;
+  animation: marquee 32s linear infinite;
 }
 
-/* Nuevas secciones */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
+@keyframes marquee {
+  to { transform: translateX(-50%); }
 }
 
-.section {
-  padding: 4rem 0;
+/* ─── 12. Anim helpers ──────────────────────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
-.section-title {
-  font-size: 2.5rem;
-  color: var(--primary-color);
-  text-align: center;
-  margin-bottom: 1.5rem;
-  font-weight: 700;
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 var(--brand-glow); }
+  50% { box-shadow: 0 0 0 12px transparent; }
 }
 
-.section-subtitle {
-  font-size: 1.1rem;
-  color: var(--text-color);
-  text-align: center;
-  max-width: 700px;
-  margin: 0 auto 3rem;
-  line-height: 1.6;
-}
-
-
-/* Media queries para responsividad */
-@media (max-width: 768px) {
-  .navbar {
-    padding: 1rem;
-  }
-  
-  .navbar ul {
-    display: none;
-  }
-  
-  .hero {
-    height: auto;
-    padding: 8rem 0;
-  }
-  
-  .background-shape {
-    width: 100%;
-    height: 50%;
-    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
-  }
-  
-  .hero-content {
-    padding: 0 2rem;
-    justify-content: center;
-    padding-top: 6rem;
-  }
-  
-  .text-content {
-    margin-right: 0;
-    text-align: center;
-  }
-  
-  .text-content h1 {
-    font-size: 3rem;
-  }
-  
-  .text-content h1 .im {
-    font-size: 2rem;
-  }
-  
-  .hero-buttons {
-    justify-content: center;
-  }
-  
-  .container {
-    padding: 0 1.5rem;
-  }
-}
-
-@media (max-width: 576px) {
-  .hero-buttons {
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .text-content h1 {
-    font-size: 2.5rem;
-  }
-  
-  .text-content h1 .im {
-    font-size: 1.5rem;
-  }
+@keyframes shimmer {
+  to { background-position: 200% 0; }
 }

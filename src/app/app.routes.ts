@@ -1,35 +1,49 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
-import { AboutComponent } from './pages/about/about.component';
-import { ProjectsComponent } from './pages/projects/projects.component';
-
-import { ContactComponent } from './pages/contact/contact.component';
-import { EducationComponent } from './pages/education/education.component';
-import { ProjectDetailsComponent } from './components/project-details/project-details.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    loadComponent: () =>
+      import('./pages/home/home.component').then((m) => m.HomeComponent),
+    title: 'Martin Mafla — Inicio',
   },
   {
     path: 'about',
-    component: AboutComponent
+    loadComponent: () =>
+      import('./pages/about/about.component').then((m) => m.AboutComponent),
+    title: 'Sobre Mí — Martin Mafla',
   },
   {
     path: 'projects',
-    component: ProjectsComponent
+    loadComponent: () =>
+      import('./pages/projects/projects.component').then(
+        (m) => m.ProjectsComponent,
+      ),
+    title: 'Proyectos — Martin Mafla',
   },
   {
     path: 'projects/:id',
-    component: ProjectDetailsComponent
+    loadComponent: () =>
+      import('./components/project-details/project-details.component').then(
+        (m) => m.ProjectDetailsComponent,
+      ),
+    title: 'Proyecto — Martin Mafla',
   },
   {
     path: 'contact',
-    component: ContactComponent
+    loadComponent: () =>
+      import('./pages/contact/contact.component').then(
+        (m) => m.ContactComponent,
+      ),
+    title: 'Contacto — Martin Mafla',
   },
   {
-    path: '**',
-    redirectTo: ''
-  }
+    path: 'education',
+    loadComponent: () =>
+      import('./pages/education/education.component').then(
+        (m) => m.EducationComponent,
+      ),
+    title: 'Educación — Martin Mafla',
+  },
+  { path: '**', redirectTo: '' },
 ];

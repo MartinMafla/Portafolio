@@ -1,115 +1,202 @@
-<div class="home-container">
-  <!-- Sección Hero con animación de personaje -->
+<div class="home page-enter">
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SECTION 1 — HERO
+       Massive kinetic typography + 3D dev workspace.
+       ═══════════════════════════════════════════════════════════════════ -->
   <section class="hero">
-    <div class="background-shape">
-      <app-character-animation></app-character-animation>
-    </div>
-    <div class="hero-content">
-      <div class="text-content">
-        <h1>
-          <span class="im">Soy</span>
-          <span class="role">Desarrollador y Diseñador</span>
+    <div class="container hero__inner">
+
+      <!-- Top row: meta info -->
+      <div class="hero__top">
+        <p class="eyebrow">PORTAFOLIO ’26 — Edición v2.0</p>
+        <p class="mono hero__location">Encendido a punta de café · desde Quito</p>
+      </div>
+
+      <!-- Main title block -->
+      <div class="hero__title-block">
+        <h1 class="hero__title display"
+            [style.transform]="'translate3d(' + (mx() * -8) + 'px,' + (my() * -4) + 'px,0)'">
+          <span class="line line--1">Desarrollador</span>
+          <span class="line line--2">
+            <em>&amp;</em> Diseñador
+          </span>
+          <span class="line line--3 mono">— construyendo lo siguiente</span>
         </h1>
-        <p class="subtitle">¡Si puedes soñarlo, puedes construirlo!</p>
-        <div class="hero-buttons">
-          <a class="btn primary" routerLink="/contact">CONTACTAR</a>
-          <a class="btn secondary" routerLink="/projects">VER PORTAFOLIO</a>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Nueva sección de estadísticas con contador de años de experiencia -->
-  <section class="stats-section">
-    <div class="container">
-      <h2 class="section-title">Experiencia Profesional</h2>
-      <p class="section-subtitle">Datos importantes sobre mi trayectoria</p>
-      
-      <div class="stats-grid">
-        <div class="stat-item" *ngFor="let stat of stats">
-          <div class="stat-number">{{ stat.number }}</div>
-          <div class="stat-label">{{ stat.label }}</div>
-        </div>
-      </div>
-
-      <div class="cta-container">
-        <a routerLink="/about" class="cta-button">CONOCE MÁS SOBRE MÍ</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Sección de habilidades tecnológicas con layout mejorado de 2 columnas -->
-  <section class="skills-section">
-    <div class="container">
-      <h2 class="section-title">Mis Habilidades</h2>
-      <p class="section-subtitle">Tecnologías con las que trabajo</p>
-      
-      <div class="tech-grid">
-        <div class="tech-info">
-          <h3>Especialización</h3>
-          <p>Soy un desarrollador Full Stack con enfoque en Frontend, apasionado por crear soluciones digitales innovadoras. Trabajo con las tecnologías más modernas para construir aplicaciones web y móviles atractivas y funcionales.</p>
-          
-          <div class="specialties">
-            <div class="specialty-item">
-              <h4>Frontend Development</h4>
-              <p>Creación de interfaces modernas y responsivas con Angular, React y Vue. Experiencia en arquitecturas complejas y optimización de rendimiento.</p>
-            </div>
-            
-            <div class="specialty-item">
-              <h4>Backend Development</h4>
-              <p>Desarrollo de APIs robustas y escalables con Node.js, Express y bases de datos relacionales y NoSQL.</p>
-            </div>
-            
-            <div class="specialty-item">
-              <h4>UI/UX Design</h4>
-              <p>Diseño de experiencias de usuario centradas en la usabilidad y estética siguiendo las últimas tendencias de diseño.</p>
-            </div>
+        <!-- 3D dev workspace -->
+        <div class="hero__scene">
+          <app-dev-workspace />
+          <!-- Brutalist edge labels -->
+          <div class="scene-label scene-label--tl mono">
+            <span class="dot"></span> RENDERING · WEBGL
           </div>
-          
-          <div class="cta-container tech-cta">
-            <a routerLink="/projects" class="cta-button">EXPLORAR PROYECTOS</a>
+          <div class="scene-label scene-label--br mono">
+            FPS · 60 / 60 ✓
           </div>
         </div>
-        
-        <div class="tech-sphere-wrapper">
-          <app-tech-sphere></app-tech-sphere>
+      </div>
+
+      <!-- Bottom row: scroll cue + summary -->
+      <div class="hero__bottom">
+        <div class="hero__summary">
+          <p>
+            Soy <strong>Martin Mafla</strong>. Construyo productos web y móviles
+            con Angular, React y Three.js. Vivo donde se cruzan el código limpio
+            y el diseño que se siente intencional.
+          </p>
+          <div class="hero__cta">
+            <a routerLink="/projects" class="btn btn--primary" magnetic data-cursor="hover">
+              Ver proyectos
+              <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </a>
+            <a routerLink="/contact" class="btn" magnetic data-cursor="hover">
+              Hablemos
+            </a>
+          </div>
+        </div>
+
+        <div class="hero__scroll mono">
+          <span>SCROLL</span>
+          <svg width="14" height="32" viewBox="0 0 14 32" fill="none">
+            <rect x="0.5" y="0.5" width="13" height="22" rx="6.5" stroke="currentColor"/>
+            <circle cx="7" cy="8" r="2" fill="currentColor">
+              <animate attributeName="cy" values="6;14;6" dur="2s" repeatCount="indefinite"/>
+            </circle>
+          </svg>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Sección de características profesionales -->
-  <section class="features-section">
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SECTION 2 — STATS BENTO (top of fold #2)
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="stats">
     <div class="container">
-      <h2 class="section-title">Características Profesionales</h2>
-      <p class="section-subtitle">Lo que me diferencia como desarrollador</p>
-      
-      <div class="features-grid">
-        <div class="feature-card">
-          <lucide-angular [name]="codeIcon" class="feature-icon"></lucide-angular>
-          <h3>Desarrollo Limpio</h3>
-          <p>Código limpio y mantenible siguiendo las mejores prácticas y patrones de diseño actuales</p>
+      @for (s of stats; track s.label; let i = $index) {
+        <div class="stat" [style.animation-delay]="i * 80 + 'ms'">
+          <span class="stat__num display">{{ s.num }}</span>
+          <span class="stat__label">{{ s.label }}</span>
+          <span class="stat__sub mono">{{ s.sub }}</span>
         </div>
-        <div class="feature-card">
-          <lucide-angular [name]="brainIcon" class="feature-icon"></lucide-angular>
-          <h3>Soluciones Inteligentes</h3>
-          <p>Enfoque analítico para resolver problemas complejos de manera eficiente y elegante</p>
-        </div>
-        <div class="feature-card">
-          <lucide-angular [name]="rocketIcon" class="feature-icon"></lucide-angular>
-          <h3>Rendimiento Óptimo</h3>
-          <p>Optimización de rendimiento y velocidad en cada proyecto para una experiencia excepcional</p>
-        </div>
-        <div class="feature-card">
-          <lucide-angular [name]="coffeeIcon" class="feature-icon"></lucide-angular>
-          <h3>Dedicación Total</h3>
-          <p>Compromiso completo con cada proyecto y atención meticulosa a todos los detalles</p>
-        </div>
-      </div>
+      }
+    </div>
+  </section>
 
-      <div class="cta-container">
-        <a routerLink="/contact" class="cta-button">TRABAJEMOS JUNTOS</a>
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SECTION 3 — FEATURED PROJECTS (BENTO GRID)
+       Asymmetric, varying card sizes — the 2026 signature pattern.
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="featured">
+    <div class="container">
+      <header class="section-header">
+        <p class="eyebrow">Proyectos seleccionados — 2024 / 2026</p>
+        <h2 class="display section-header__title">
+          Trabajo<br><em>seleccionado.</em>
+        </h2>
+        <a routerLink="/projects" class="section-header__link mono" data-cursor="hover">
+          VER TODO →
+        </a>
+      </header>
+
+      <div class="bento">
+        @for (p of featured; track p.id; let i = $index) {
+          <a [routerLink]="['/projects', p.id]"
+             class="bento-card"
+             [class.bento-card--lg]="i === 0"
+             [class.bento-card--md]="i === 3"
+             data-cursor="hover"
+             [style.--accent]="p.bg">
+            <div class="bento-card__bg"></div>
+
+            <div class="bento-card__top">
+              <span class="mono bento-card__tag">{{ p.tag }} · {{ p.year }}</span>
+              <span class="mono bento-card__id">— 0{{ p.id }} / 04</span>
+            </div>
+
+            <div class="bento-card__body">
+              <h3 class="display bento-card__title">{{ p.title }}</h3>
+              <p class="bento-card__role mono">{{ p.role }}</p>
+              <p class="bento-card__desc">{{ p.desc }}</p>
+            </div>
+
+            <div class="bento-card__cta">
+              <span class="mono">Ver caso</span>
+              <span class="bento-card__arrow">
+                <svg width="36" height="14" viewBox="0 0 36 14" fill="none">
+                  <path d="M0 7h33M28 1l6 6-6 6" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+              </span>
+            </div>
+          </a>
+        }
       </div>
     </div>
   </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SECTION 4 — PRINCIPLES (Editorial Brutalism)
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="principles">
+    <div class="container">
+      <header class="section-header section-header--tight">
+        <p class="eyebrow">Cómo trabajo</p>
+        <h2 class="display section-header__title">
+          Cuatro<br><em>principios.</em>
+        </h2>
+      </header>
+
+      <ol class="principles__list">
+        @for (p of principles; track p.no) {
+          <li class="principle">
+            <div class="principle__no mono">{{ p.no }}</div>
+            <div class="principle__body">
+              <h3 class="principle__title">{{ p.title }}</h3>
+              <p class="principle__text">{{ p.body }}</p>
+            </div>
+            <div class="principle__line"></div>
+          </li>
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SECTION 5 — TECH MARQUEE
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="tech">
+    <div class="container">
+      <header class="section-header section-header--center">
+        <p class="eyebrow">Stack</p>
+        <h2 class="display section-header__title">
+          Las herramientas con las que <em>construyo.</em>
+        </h2>
+      </header>
+    </div>
+    <app-tech-marquee />
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SECTION 6 — CTA
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="cta">
+    <div class="container cta__inner">
+      <p class="eyebrow">¿Tienes un proyecto?</p>
+      <h2 class="display cta__title">
+        Hagamos<br>
+        <span class="cta__title-em">algo grande.</span>
+      </h2>
+      <p class="cta__sub">Disponible para trabajo full-time, freelance o colaboraciones desde Q3 2026.</p>
+      <a routerLink="/contact" class="btn btn--primary cta__btn" magnetic [strength]="0.5" data-cursor="hover">
+        Iniciar conversación
+        <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none">
+          <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
 </div>

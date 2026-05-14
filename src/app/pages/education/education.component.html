@@ -1,1 +1,156 @@
-<p>education works!</p>
+<div class="education-page page-enter">
+
+  <!-- Hero -->
+  <section class="hero container">
+    <div class="hero__top">
+      <span class="eyebrow">
+        <span class="dot"></span>
+        05 — Educación
+      </span>
+      <span class="mono">Always learning · Never finished</span>
+    </div>
+
+    <h1 class="hero__title display">
+      Trayectoria <em>profesional.</em>
+    </h1>
+
+    <p class="hero__sub">
+      Carrera profesional, educación formal y aprendizaje continuo.
+      Cinco años aplicando lo que estudio en proyectos reales — desde sistemas
+      bancarios críticos hasta plataformas para startups.
+    </p>
+  </section>
+
+  <!-- Achievement stats -->
+  <section class="stats container">
+    @for (a of achievements; track a.label; let i = $index) {
+      <div class="stat">
+        <span class="mono stat__num">— 0{{ i + 1 }}</span>
+        <span class="stat__big display">{{ a.number }}</span>
+        <span class="stat__label">{{ a.label }}</span>
+        <span class="stat__detail">{{ a.detail }}</span>
+      </div>
+    }
+  </section>
+
+  <!-- Timeline -->
+  <section class="timeline-section container">
+    <div class="timeline-section__head">
+      <span class="eyebrow">
+        <span class="dot"></span>
+        Línea de tiempo
+      </span>
+      <h2 class="timeline-section__title display">
+        El <em>recorrido.</em>
+      </h2>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline__line"></div>
+
+      @for (item of education; track item.year + item.title; let i = $index) {
+        <article class="entry" [class.entry--highlight]="item.highlight">
+          <!-- Year column -->
+          <div class="entry__year">
+            <span class="mono entry__year-num">{{ item.year }}</span>
+            @if (item.yearTo) {
+              <span class="mono entry__year-to">→ {{ item.yearTo }}</span>
+            }
+            <div class="entry__dot">
+              <div class="entry__dot-inner"></div>
+            </div>
+          </div>
+
+          <!-- Content -->
+          <div class="entry__content">
+            <div class="entry__head">
+              <span class="entry__type mono"
+                [class]="'entry__type--' + item.type">
+                {{ item.type === 'degree' ? 'CARRERA' :
+                   item.type === 'cert' ? 'CERTIFICACIÓN' :
+                   item.type === 'work' ? 'EXPERIENCIA' :
+                   item.type === 'course' ? 'CURSO' : 'TALLER' }}
+              </span>
+              @if (item.status === 'ongoing') {
+                <span class="entry__status">
+                  <span class="status-pulse"></span>
+                  En curso
+                </span>
+              }
+            </div>
+
+            <h3 class="entry__title">{{ item.title }}</h3>
+            <p class="entry__institution">{{ item.institution }}</p>
+            <p class="entry__desc">{{ item.description }}</p>
+
+            <div class="entry__skills">
+              @for (s of item.skills; track s) {
+                <span class="skill-pill">{{ s }}</span>
+              }
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+
+  <!-- Certifications -->
+  <section class="certs container">
+    <div class="certs__head">
+      <span class="eyebrow">
+        <span class="dot"></span>
+        Otras certificaciones
+      </span>
+      <h2 class="certs__title display">Y un poco más.</h2>
+    </div>
+
+    <ul class="certs__list">
+      @for (c of certifications; track c; let i = $index) {
+        <li class="cert">
+          <span class="mono cert__num">— {{ '0' + (i + 1) }}</span>
+          <span class="cert__text">{{ c }}</span>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <!-- Philosophy -->
+  <section class="philosophy container">
+    <div class="philosophy__head">
+      <span class="eyebrow">
+        <span class="dot"></span>
+        Filosofía de aprendizaje
+      </span>
+    </div>
+
+    <div class="philosophy__grid">
+      @for (p of philosophy; track p.title; let i = $index) {
+        <div class="phil-card">
+          <span class="mono phil-card__num">— {{ '0' + (i + 1) }}</span>
+          <h3 class="phil-card__title display">{{ p.title }}</h3>
+          <p class="phil-card__text">{{ p.text }}</p>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta container">
+    <div class="cta__inner">
+      <h2 class="cta__title display">
+        ¿Te interesa <em>colaborar?</em>
+      </h2>
+      <p class="cta__text">
+        Si tu proyecto necesita alguien que aprenda rápido y entregue mejor —
+        hablemos.
+      </p>
+      <a routerLink="/contact" magnetic [strength]="0.3" class="btn btn--primary" data-cursor="link">
+        <span>Iniciar conversación</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+</div>

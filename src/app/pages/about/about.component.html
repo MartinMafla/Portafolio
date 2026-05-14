@@ -1,47 +1,158 @@
-<section class="about-section">
-  <div class="about-header">
-    <div class="about-image-container">
-      <img src="assets/images/aboutmebanner.png" alt="Profile" class="about-image">
-    </div>
-    <div class="about-intro">
-      <h2>Sobre Mí</h2>
-      <p class="lead-text">
-        Soy un desarrollador fullstack apasionado por crear soluciones digitales innovadoras. 
-        Con más de 3 años de experiencia, me especializo en desarrollo web y móvil, 
-        siempre buscando nuevas formas de mejorar la experiencia del usuario.
-      </p>
-      <a routerLink="/contact" class="contact-btn">
-        Ponte en contacto
-        <mat-icon>arrow_forward</mat-icon>
-      </a>
-    </div>
-  </div>
+<div class="about page-enter">
 
-  <div class="services-section">
-    <h3>Mis Servicios</h3>
-    <div class="services-grid">
-      <div class="service-card" *ngFor="let service of services">
-        <mat-icon class="service-icon">{{service.icon}}</mat-icon>
-        <h4>{{service.title}}</h4>
-        <p>{{service.description}}</p>
+  <!-- ═══════════════ HERO ═══════════════════════════════════════════════ -->
+  <section class="ab-hero">
+    <div class="container">
+      <div class="ab-hero__head">
+        <p class="eyebrow">SOBRE MÍ — DOSSIER 2026</p>
+        <p class="mono ab-hero__file">M.MAFLA / DEV-CRAFT</p>
       </div>
-    </div>
-  </div>
 
-  <div class="tech-stack">
-    <h3>Stack Tecnológico</h3>
-    
-    <div *ngFor="let category of techCategories" class="tech-category">
-      <h4 class="category-title">{{category.name}}</h4>
-      <div class="tech-grid">
-        <div class="tech-item" *ngFor="let tech of category.technologies">
-          <i [class]="tech.icon"></i>
-          <span class="tech-name">{{tech.name}}</span>
-          <div class="tech-level">
-            <div class="level-bar" [style.width.%]="tech.level"></div>
+      <h1 class="display ab-hero__title">
+        <span class="line">Construyo</span>
+        <span class="line">interfaces<em>.</em></span>
+        <span class="line line--small mono">Y a veces, también el backend.</span>
+      </h1>
+
+      <div class="ab-hero__meta">
+        <div class="ab-hero__avatar">
+          <app-avatar-glyph [size]="220" [animated]="true" [showLabel]="true" />
+        </div>
+
+        <div class="ab-hero__bio">
+          <p class="ab-hero__lead">
+            Hola — soy Martín Mafla. Desarrollador Full Stack con formación en Diseño Gráfico,
+            actualmente Software Engineer en Banistmo (Grupo Financiero Promerica). Construyo
+            sistemas que combinan funcionalidad técnica robusta con diseño visual excepcional.
+          </p>
+          <p class="ab-hero__body">
+            Mi diferencial está en entender tanto el código como la experiencia del usuario.
+            En el día a día trabajo con <strong>Java Spring Boot, Angular, microservicios
+            y arquitecturas en la nube</strong> en sistemas bancarios críticos —
+            con cumplimiento PCI-DSS, detección de fraude y validación en tiempo real.
+          </p>
+          <p class="ab-hero__body">
+            Antes pasé por HEX como Senior WordPress Developer & Tech Lead, hice freelance
+            como Data Engineer y Arquitecto Java, y estuve en Diners Club desarrollando
+            módulos transaccionales y dashboards Power BI. Hablo español nativo,
+            inglés fluido y francés intermedio.
+          </p>
+
+          <div class="ab-hero__cta">
+            <a routerLink="/contact" class="btn btn--primary" magnetic data-cursor="hover">
+              Hablemos
+              <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </a>
+            <a href="/cv-martin-mafla.pdf" class="btn" magnetic data-cursor="hover" target="_blank" rel="noopener">
+              Descargar CV
+            </a>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+
+  <!-- ═══════════════ FACTS GRID ═════════════════════════════════════════ -->
+  <section class="ab-facts">
+    <div class="container">
+      <ul class="ab-facts__grid">
+        @for (f of facts; track f.k) {
+          <li class="fact">
+            <span class="fact__k mono">{{ f.k }}</span>
+            <span class="fact__v">{{ f.v }}</span>
+          </li>
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══════════════ SERVICES ═══════════════════════════════════════════ -->
+  <section class="ab-services">
+    <div class="container">
+      <header class="section-header">
+        <p class="eyebrow">Lo que hago</p>
+        <h2 class="display section-header__title">
+          Cuatro<br><em>servicios.</em>
+        </h2>
+      </header>
+
+      <div class="services-grid">
+        @for (s of services; track s.no) {
+          <article class="service" data-cursor="hover">
+            <div class="service__head">
+              <span class="mono service__no">{{ s.no }}</span>
+              <h3 class="display service__title">{{ s.title }}</h3>
+            </div>
+            <p class="service__desc">{{ s.desc }}</p>
+            <ul class="service__bullets mono">
+              @for (b of s.bullets; track b) {
+                <li>— {{ b }}</li>
+              }
+            </ul>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ SKILLS BENTO ══════════════════════════════════════ -->
+  <section class="ab-skills">
+    <div class="container">
+      <header class="section-header">
+        <p class="eyebrow">Stack</p>
+        <h2 class="display section-header__title">
+          Las herramientas con las<br>que <em>trabajo todos los días.</em>
+        </h2>
+      </header>
+
+      <div class="skills-bento">
+        @for (b of skillBlocks; track b.category) {
+          <div class="skill-block" [attr.data-size]="b.size">
+            <header class="skill-block__head">
+              <span class="mono">{{ b.category }}</span>
+              <span class="mono skill-block__count">{{ b.items.length }} · {{ b.items.length === 1 ? 'tool' : 'tools' }}</span>
+            </header>
+
+            <ul class="skill-block__items">
+              @for (item of b.items; track item.name; let i = $index) {
+                <li class="skill-tile" [style.animation-delay]="i * 60 + 'ms'">
+                  @if (item.icon) {
+                    <i [class]="item.icon"></i>
+                  }
+                  <span>{{ item.name }}</span>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ JOURNEY ═══════════════════════════════════════════ -->
+  <section class="ab-journey">
+    <div class="container">
+      <header class="section-header section-header--tight">
+        <p class="eyebrow">Trayectoria</p>
+        <h2 class="display section-header__title">
+          Línea<br><em>de tiempo.</em>
+        </h2>
+      </header>
+
+      <ol class="timeline">
+        @for (j of journey; track j.year) {
+          <li class="timeline__item" [attr.data-side]="j.side">
+            <div class="timeline__dot"></div>
+            <div class="timeline__content">
+              <span class="mono timeline__year">{{ j.year }}</span>
+              <p class="display timeline__title">{{ j.title }}</p>
+            </div>
+          </li>
+        }
+      </ol>
+    </div>
+  </section>
+
+</div>

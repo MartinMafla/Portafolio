@@ -1,80 +1,237 @@
-<!-- project-details.component.html -->
-<div class="project-details-container">
-  <!-- Hero Section -->
-  <section class="project-hero">
-    <img [src]="project.coverImage" [alt]="project.title" class="project-hero-image">
-    <div class="hero-overlay"></div>
-    <div class="project-hero-content">
-      <h1>{{project.title}}</h1>
-      <p class="project-subtitle">{{project.description}}</p>
+<div class="project-detail page-enter" [style.--accent]="project().accent">
+
+  <!-- Back button fixed -->
+  <a routerLink="/projects" class="back-pill" data-cursor="link">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span>Todos los proyectos</span>
+  </a>
+
+  <!-- HERO BANNER with parallax -->
+  <section class="banner">
+    <div class="banner__image" [style.transform]="bannerParallax()">
+      <img [src]="project().cover" [alt]="project().title" />
+      <div class="banner__overlay"></div>
+    </div>
+
+    <div class="banner__content container">
+      <div class="banner__top">
+        <span class="mono banner__cat">— {{ project().category }}</span>
+        <span class="mono banner__year">{{ project().year }}</span>
+      </div>
+
+      <h1 class="banner__title display">{{ project().title }}</h1>
+      <p class="banner__tagline">{{ project().tagline }}</p>
+
+      <div class="banner__bottom">
+        <div class="banner__client">
+          <span class="mono">CLIENTE</span>
+          <span>{{ project().client }}</span>
+        </div>
+        @if (project().url) {
+          <a [href]="project().url" target="_blank" rel="noopener" class="banner__link" data-cursor="link">
+            <span>Ver proyecto en vivo</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M7 17L17 7M17 7H8M17 7V16" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        }
+      </div>
     </div>
   </section>
 
-  <div class="project-content">
-    <div class="project-card">
-      <!-- Información básica del proyecto en formato grid -->
-      <div class="section-grid">
-        <div class="main-content">
-          <!-- Descripción general del proyecto -->
-          <div class="description-section">
-            <h2>Descripción del Proyecto</h2>
-            <p>{{project.longDescription}}</p>
-          </div>
-
-          <!-- Características principales en lista -->
-          <div class="features-section">
-            <h2>Características Principales</h2>
-            <ul class="features-list">
-              <li *ngFor="let feature of project.features">
-                <lucide-angular name="check-circle" class="feature-icon"></lucide-angular>
-                <span>{{feature}}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Sidebar con detalles técnicos y tecnologías -->
-        <div class="sidebar-content">
-          <!-- Detalles del proyecto en card -->
-          <div class="info-card">
-            <h2>Detalles del Proyecto</h2>
-            <div class="details-list">
-              <div class="detail-item" *ngFor="let detail of projectDetails">
-                <span class="detail-label">{{detail.label}}</span>
-                <span class="detail-value">{{detail.value}}</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Tecnologías utilizadas en tags -->
-          <div class="info-card">
-            <h2>Tecnologías Utilizadas</h2>
-            <div class="technologies-used">
-              <span class="tech-tag" *ngFor="let tech of project.technologies">
-                {{tech}}
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Galería de imágenes del proyecto -->
-      <app-project-gallery 
-        *ngIf="project.gallery && project.gallery.length > 0"
-        [images]="project.gallery">
-      </app-project-gallery>
-
-      <!-- Caso de estudio del proyecto -->
-      <app-project-case-study 
-        *ngIf="project.caseStudy"
-        [caseStudy]="project.caseStudy">
-      </app-project-case-study>
+  <!-- META BAR -->
+  <section class="meta container">
+    <div class="meta__item">
+      <span class="mono meta__label">— ROL</span>
+      <span class="meta__value">{{ project().role }}</span>
     </div>
-  </div>
+    <div class="meta__item">
+      <span class="mono meta__label">— DURACIÓN</span>
+      <span class="meta__value">{{ project().duration }}</span>
+    </div>
+    <div class="meta__item">
+      <span class="mono meta__label">— EQUIPO</span>
+      <span class="meta__value">{{ project().team }}</span>
+    </div>
+    <div class="meta__item">
+      <span class="mono meta__label">— ESTADO</span>
+      <span class="meta__value">
+        <span class="status-dot" [class.live]="project().status === 'live'"></span>
+        {{ project().status === 'live' ? 'En producción' : project().status === 'archive' ? 'Archivado' : 'Concepto' }}
+      </span>
+    </div>
+  </section>
 
-  <!-- Botón para volver -->
-  <div class="back-button" (click)="goBack()">
-    <lucide-angular name="arrow-left" size="24"></lucide-angular>
-    <span>Volver a proyectos</span>
-  </div>
+  <!-- INTRO -->
+  <section class="intro container">
+    <span class="eyebrow">
+      <span class="dot"></span>
+      Contexto
+    </span>
+    <p class="intro__text display">{{ project().intro }}</p>
+  </section>
+
+  <!-- METRICS -->
+  <section class="metrics container">
+    @for (m of project().metrics; track m.label; let i = $index) {
+      <div class="metric">
+        <span class="mono metric__num">— 0{{ i + 1 }}</span>
+        <span class="metric__value display">{{ m.value }}</span>
+        <span class="metric__label">{{ m.label }}</span>
+      </div>
+    }
+  </section>
+
+  <!-- CHALLENGE -->
+  <section class="section container">
+    <div class="section__head">
+      <span class="mono section__num">— 01</span>
+      <span class="eyebrow">El reto</span>
+    </div>
+    <h2 class="section__title display">¿Qué problema <em>resolvíamos?</em></h2>
+    <ul class="section__list">
+      @for (item of project().challenge; track item) {
+        <li class="section__list-item">{{ item }}</li>
+      }
+    </ul>
+  </section>
+
+  <!-- GALLERY 1 -->
+  <section class="gallery container">
+    <div class="gallery__row">
+      <div class="gallery__item gallery__item--lg">
+        <img [src]="project().gallery[0]" [alt]="project().title + ' screen 1'" loading="lazy" />
+        <span class="mono gallery__caption">— PANTALLA PRINCIPAL</span>
+      </div>
+      <div class="gallery__item">
+        <img [src]="project().gallery[1] || project().gallery[0]" [alt]="project().title + ' screen 2'" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUTION -->
+  <section class="section container">
+    <div class="section__head">
+      <span class="mono section__num">— 02</span>
+      <span class="eyebrow">La solución</span>
+    </div>
+    <h2 class="section__title display">Cómo lo <em>abordé.</em></h2>
+    <ul class="section__list">
+      @for (item of project().solution; track item) {
+        <li class="section__list-item">{{ item }}</li>
+      }
+    </ul>
+  </section>
+
+  <!-- TECH STACK -->
+  <section class="tech container">
+    <div class="tech__head">
+      <span class="mono">— STACK TÉCNICO</span>
+    </div>
+    <div class="tech__grid">
+      @for (t of project().tech; track t; let i = $index) {
+        <div class="tech-item">
+          <span class="mono tech-item__num">{{ '0' + (i + 1) }}</span>
+          <span class="tech-item__name">{{ t }}</span>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section container">
+    <div class="section__head">
+      <span class="mono section__num">— 03</span>
+      <span class="eyebrow">El proceso</span>
+    </div>
+    <h2 class="section__title display">Paso a <em>paso.</em></h2>
+    <ol class="section__steps">
+      @for (item of project().process; track item; let i = $index) {
+        <li class="section__step">
+          <span class="mono section__step-num">PASO {{ i + 1 }}</span>
+          <p class="section__step-text">{{ item }}</p>
+        </li>
+      }
+    </ol>
+  </section>
+
+  <!-- GALLERY 2 - 3 columns -->
+  @if (project().gallery.length > 2) {
+    <section class="gallery container">
+      <div class="gallery__triple">
+        @for (img of project().gallery.slice(2, 5); track img; let i = $index) {
+          <div class="gallery__item">
+            <img [src]="img" [alt]="project().title + ' detail ' + (i + 3)" loading="lazy" />
+          </div>
+        }
+      </div>
+    </section>
+  }
+
+  <!-- OUTCOME -->
+  <section class="section container section--outcome">
+    <div class="section__head">
+      <span class="mono section__num">— 04</span>
+      <span class="eyebrow">Resultados</span>
+    </div>
+    <h2 class="section__title display">Qué <em>logramos.</em></h2>
+    <ul class="section__list section__list--outcome">
+      @for (item of project().outcome; track item) {
+        <li class="section__list-item">
+          <span class="check">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          {{ item }}
+        </li>
+      }
+    </ul>
+  </section>
+
+  <!-- REFLECTION -->
+  <section class="reflection container">
+    <div class="reflection__inner">
+      <span class="eyebrow">
+        <span class="dot"></span>
+        Reflexión final
+      </span>
+      <blockquote class="reflection__quote display">
+        "{{ project().reflection }}"
+      </blockquote>
+      <span class="mono reflection__sign">— MM</span>
+    </div>
+  </section>
+
+  <!-- NAV BETWEEN PROJECTS -->
+  <section class="project-nav container">
+    <a [routerLink]="['/projects', project().prev.slug]" class="project-nav__link project-nav__link--prev" data-cursor="link">
+      <span class="mono">— PROYECTO ANTERIOR</span>
+      <span class="project-nav__name display">{{ project().prev.title }}</span>
+      <span class="project-nav__arrow">←</span>
+    </a>
+    <a [routerLink]="['/projects', project().next.slug]" class="project-nav__link project-nav__link--next" data-cursor="link">
+      <span class="mono">— SIGUIENTE PROYECTO</span>
+      <span class="project-nav__name display">{{ project().next.title }}</span>
+      <span class="project-nav__arrow">→</span>
+    </a>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta container">
+    <div class="cta__inner">
+      <h2 class="cta__title display">
+        ¿Tienes un proyecto <em>similar?</em>
+      </h2>
+      <a routerLink="/contact" magnetic [strength]="0.3" class="btn btn--primary" data-cursor="link">
+        <span>Hablemos</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
 </div>

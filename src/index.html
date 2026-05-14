@@ -1,17 +1,264 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="utf-8">
-  <title>MiPortafolio</title>
+  <title>Martin Mafla — Desarrollador & Diseñador</title>
   <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Portafolio de Martin Mafla — Desarrollador full-stack y diseñador. Especializado en Angular, React, y experiencias digitales modernas.">
+  <meta name="theme-color" content="#6c5ce7">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Martin Mafla — Desarrollador & Diseñador">
+  <meta property="og:description" content="Portafolio 2026. Desarrollador full-stack y diseñador.">
+
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Fonts: Instrument Serif (display), Inter Tight (UI), JetBrains Mono (code) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Devicon for tech logos -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!--
+    ──────────────────────────────────────────────────────────────────────
+    BOOT SPLASH — runs BEFORE Angular bootstraps. This is the trick used
+    by sites like Joby Aviation: the splash is plain HTML+CSS+JS so it
+    paints on the very first frame, no waiting for the framework to load.
+    Angular finishes booting under the splash, then the splash fades.
+    ──────────────────────────────────────────────────────────────────────
+  -->
+  <style>
+    #boot-splash {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: #6c5ce7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 16px;
+      font-family: 'Instrument Serif', Georgia, serif;
+      color: #ffffff;
+      transition: opacity 0.7s cubic-bezier(0.76, 0, 0.24, 1),
+                  visibility 0.7s cubic-bezier(0.76, 0, 0.24, 1);
+    }
+
+    #boot-splash.is-leaving {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    /* radial vignette glow */
+    #boot-splash::before {
+      content: '';
+      position: absolute;
+      width: 80vmax;
+      height: 80vmax;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(255,255,255,0.18) 0%, transparent 55%);
+      pointer-events: none;
+      animation: bs-pulse 2.4s ease-in-out infinite;
+    }
+
+    /* subtle grain */
+    #boot-splash::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 3px 3px;
+      mix-blend-mode: overlay;
+      pointer-events: none;
+    }
+
+    .bs-line {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: clamp(40px, 8vw, 84px);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      font-weight: 400;
+      position: relative;
+      z-index: 2;
+    }
+
+    .bs-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 0 14px rgba(255,255,255,0.7);
+      animation: bs-pulse-dot 1.1s ease-in-out infinite;
+    }
+
+    .bs-text {
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .bs-caret {
+      display: inline-block;
+      width: 4px;
+      height: 0.85em;
+      background: #ffffff;
+      margin-left: 4px;
+      vertical-align: middle;
+      animation: bs-blink 0.65s steps(1, end) infinite;
+    }
+
+    .bs-meta {
+      position: absolute;
+      bottom: 32px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      color: rgba(255,255,255,0.7);
+      text-transform: uppercase;
+      z-index: 2;
+    }
+
+    .bs-meta span { display: block; }
+    .bs-meta .bs-pct { margin-top: 4px; opacity: 0.55; }
+
+    @keyframes bs-pulse-dot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.5); opacity: 0.6; }
+    }
+
+    @keyframes bs-blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+
+    @keyframes bs-pulse {
+      0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #boot-splash::before,
+      .bs-dot,
+      .bs-caret { animation: none !important; }
+    }
+
+    /* Same effect, applied via class — for users with reduced-motion enabled
+       at OS level, we still show the splash but kill the looping anims */
+    #boot-splash.bs-reduced::before,
+    #boot-splash.bs-reduced .bs-dot,
+    #boot-splash.bs-reduced .bs-caret { animation: none !important; }
+
+    /* prevent the page underneath from scrolling while splash is up */
+    html.bs-locked,
+    body.bs-locked { overflow: hidden !important; }
+  </style>
 </head>
-<body class="mat-typography">
+<body>
+  <!-- BOOT SPLASH (removed by inline script after intro plays) -->
+  <div id="boot-splash" aria-hidden="true">
+    <div class="bs-line">
+      <span class="bs-dot"></span>
+      <span class="bs-text" id="bs-text"></span><span class="bs-caret"></span>
+    </div>
+    <div class="bs-meta">
+      <span>PORTFOLIO · 2026</span>
+      <span class="bs-pct" id="bs-pct">00</span>
+    </div>
+  </div>
+
+  <script>
+    // ───── INLINE BOOT SPLASH LOGIC ─────────────────────────────────────
+    // Runs immediately on HTML parse. Plays a typewriter intro then
+    // gracefully fades to reveal the Angular app underneath.
+    (function () {
+      console.log('[splash] script started at', performance.now(), 'ms');
+
+      var splash = document.getElementById('boot-splash');
+      var textEl = document.getElementById('bs-text');
+      var pctEl  = document.getElementById('bs-pct');
+
+      if (!splash || !textEl || !pctEl) {
+        console.warn('[splash] elements not found! splash=%o text=%o pct=%o', splash, textEl, pctEl);
+        return;
+      }
+      console.log('[splash] elements OK, splash visible:', splash.offsetWidth, 'x', splash.offsetHeight);
+
+      // Skip if seen this session
+      try {
+        var seen = sessionStorage.getItem('martin_intro_seen');
+        console.log('[splash] sessionStorage flag =', seen);
+        if (seen === '1') {
+          console.log('[splash] already seen this session, skipping');
+          splash.parentNode && splash.parentNode.removeChild(splash);
+          return;
+        }
+      } catch (e) {
+        console.warn('[splash] sessionStorage error', e);
+      }
+
+      // Honor reduced-motion preference — but DON'T skip the splash entirely.
+      // We just disable the looping animations (pulse, blink, glow) so motion-
+      // sensitive users still see the brand intro without vestibular triggers.
+      var reduced = window.matchMedia &&
+                    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      console.log('[splash] prefers-reduced-motion =', reduced);
+      if (reduced) {
+        splash.classList.add('bs-reduced');
+      }
+
+      document.documentElement.classList.add('bs-locked');
+      document.body && document.body.classList.add('bs-locked');
+
+      var word = 'by.martin';
+      var charDelay = 110;    // ms per character
+      var startDelay = 450;   // ms before typing starts
+      var holdAfter  = 1100;  // ms hold after word complete
+      var fadeOut    = 800;   // ms fade-out duration
+
+      console.log('[splash] starting typewriter — total visible =',
+                  startDelay + word.length * charDelay + holdAfter + fadeOut, 'ms');
+
+      // Typewriter
+      word.split('').forEach(function (ch, i) {
+        setTimeout(function () { textEl.textContent += ch; },
+                   startDelay + i * charDelay);
+      });
+
+      // Pseudo loading percent
+      var pct = 0;
+      function tickPct() {
+        pct = Math.min(100, pct + Math.ceil(Math.random() * 5));
+        pctEl.textContent = pct < 10 ? '0' + pct : '' + pct;
+        if (pct < 100) setTimeout(tickPct, 28);
+      }
+      setTimeout(tickPct, 80);
+
+      // Fade out and remove
+      var totalMs = startDelay + word.length * charDelay + holdAfter;
+      setTimeout(function () {
+        console.log('[splash] starting fade-out at', performance.now(), 'ms');
+        splash.classList.add('is-leaving');
+        try { sessionStorage.setItem('martin_intro_seen', '1'); } catch (e) {}
+        setTimeout(function () {
+          document.documentElement.classList.remove('bs-locked');
+          document.body && document.body.classList.remove('bs-locked');
+          if (splash.parentNode) splash.parentNode.removeChild(splash);
+          console.log('[splash] removed at', performance.now(), 'ms');
+        }, fadeOut);
+      }, totalMs);
+    })();
+  </script>
+
   <app-root></app-root>
 </body>
 </html>

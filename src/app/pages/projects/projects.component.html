@@ -1,16 +1,131 @@
-<div class="projects-container">
-  <section class="projects-hero">
-    <div class="hero-text">
-      <h1>Mis Proyectos</h1>
-      <p>Una muestra de mi trabajo y experiencia</p>
+<div class="projects-page page-enter">
+
+  <!-- Hero -->
+  <section class="hero container">
+    <div class="hero__top">
+      <span class="eyebrow">
+        <span class="dot"></span>
+        02 — Proyectos seleccionados
+      </span>
+      <span class="mono hero__count">
+        {{ filtered().length }} / {{ projects.length }} en vista
+      </span>
+    </div>
+
+    <h1 class="hero__title display">
+      Cosas que <em>he construido.</em>
+    </h1>
+
+    <p class="hero__sub">
+      Una colección de proyectos donde el código encontró diseño y el diseño encontró propósito.
+      Cada uno con sus propios retos, decisiones y lecciones.
+    </p>
+
+    <!-- Filters -->
+    <div class="filters">
+      @for (f of filters; track f.id) {
+        <button
+          class="filter-chip"
+          [class.active]="filter() === f.id"
+          (click)="setFilter(f.id)"
+          data-cursor="link">
+          {{ f.label }}
+        </button>
+      }
     </div>
   </section>
 
-  <div class="projects-grid">
-    <app-project-card 
-      *ngFor="let project of projects" 
-      [project]="project"
-      (click)="openProjectDetails(project)">
-    </app-project-card>
-  </div>
+  <!-- Bento Grid -->
+  <section class="bento container">
+    @for (p of filtered(); track p.id; let i = $index) {
+      <a
+        [routerLink]="['/projects', p.slug]"
+        class="card"
+        [class.card--lg]="p.size === 'lg'"
+        [class.card--md]="p.size === 'md'"
+        [class.card--sm]="p.size === 'sm'"
+        [style.--card-accent]="p.accent"
+        (mouseenter)="setHover(p.id)"
+        (mouseleave)="setHover(null)"
+        data-cursor="link">
+
+        <!-- Header strip -->
+        <div class="card__head">
+          <span class="mono card__num">— {{ '0' + p.id }} / 04</span>
+          <span class="mono card__status" [class.live]="p.status === 'live'">
+            <span class="status-dot"></span>
+            {{ p.status === 'live' ? 'En producción' : p.status === 'archive' ? 'Archivo' : 'Concepto' }}
+          </span>
+        </div>
+
+        <!-- Cover image -->
+        <div class="card__cover">
+          <img [src]="p.cover" [alt]="p.title" loading="lazy" />
+          <div class="card__overlay"></div>
+          <div class="card__glow"></div>
+        </div>
+
+        <!-- Body -->
+        <div class="card__body">
+          <div class="card__meta">
+            <span class="mono">{{ p.year }}</span>
+            <span class="dot-sep">·</span>
+            <span class="mono">{{ p.role }}</span>
+          </div>
+
+          <h2 class="card__title">{{ p.title }}</h2>
+          <p class="card__tag">{{ p.tagline }}</p>
+
+          <p class="card__desc">{{ p.description }}</p>
+
+          <div class="card__tech">
+            @for (t of p.tech.slice(0, 6); track t) {
+              <span class="tech-pill">{{ t }}</span>
+            }
+            @if (p.tech.length > 6) {
+              <span class="tech-pill tech-pill--more">+{{ p.tech.length - 6 }}</span>
+            }
+          </div>
+        </div>
+
+        <!-- Footer arrow -->
+        <div class="card__foot">
+          <span class="mono">VER CASO COMPLETO</span>
+          <span class="card__arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M7 17L17 7M17 7H8M17 7V16" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </div>
+
+      </a>
+    }
+  </section>
+
+  <!-- Closing CTA -->
+  <section class="closing container">
+    <div class="closing__inner">
+      <p class="eyebrow">
+        <span class="dot"></span>
+        ¿Hay algo más?
+      </p>
+      <h2 class="closing__title display">
+        Sí, hay <em>más cosas</em> en el horno.
+      </h2>
+      <p class="closing__text">
+        Estos son los proyectos que llegaron a producción.
+        Si te interesa ver experimentos, side projects o el proceso detrás de cada uno —
+        escríbeme y te muestro lo que está pasando.
+      </p>
+      <div class="closing__cta">
+        <a routerLink="/contact" magnetic [strength]="0.3" class="btn btn--primary" data-cursor="link">
+          <span>Hablemos del próximo</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
 </div>

@@ -1,72 +1,249 @@
-<div class="contact-container">
-  <!-- Hero Banner -->
-  <section class="contact-hero">
-    <div class="hero-content">
-      <h1>Contáctame</h1>
-      <p>El primer paso para hacer realidad tus ideas es ponerte en contacto conmigo</p>
+<div class="contact-page page-enter">
+
+  <!-- Hero -->
+  <section class="hero container">
+    <div class="hero__top">
+      <span class="eyebrow">
+        <span class="dot"></span>
+        04 — Contacto
+      </span>
+      <span class="mono hero__time">
+        Quito · {{ formattedTime }} GMT-5
+      </span>
     </div>
+
+    <h1 class="hero__title display">
+      Cuéntame qué <em>tienes en mente.</em>
+    </h1>
+
+    <p class="hero__sub">
+      Sea un proyecto serio, una idea suelta, o solo ganas de conectar.
+      Respondo todos los mensajes en menos de 24 horas — sin filtros raros.
+    </p>
   </section>
-  
-  <!-- Formulario de Contacto -->
-  <div class="contact-form-container">
-    <form class="contact-form" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-      <h2 class="form-title">¿Listo para colaborar?</h2>
-      <p class="form-subtitle">Completa el formulario y me pondré en contacto contigo lo antes posible para discutir tu proyecto.</p>
-      
-      <div class="form-group">
-        <label for="name">Nombre</label>
-        <input id="name" type="text" formControlName="name" placeholder="Tu nombre">
-        <div class="error-message" *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched">
-          El nombre es requerido
+
+  <!-- Main grid: form + channels -->
+  <section class="grid container">
+
+    <!-- Form column -->
+    <div class="form-col">
+      @if (!submitted()) {
+        <form class="form" (ngSubmit)="onSubmit()" novalidate>
+          <div class="form__head">
+            <span class="mono">— FORMULARIO</span>
+            <span class="mono form__progress">
+              {{ isValid() ? 'LISTO PARA ENVIAR' : 'COMPLETA LOS CAMPOS' }}
+            </span>
+          </div>
+
+          <!-- Name -->
+          <div class="field" [class.field--filled]="formData().name">
+            <label class="field__label mono">01 — ¿Cómo te llamas?</label>
+            <input
+              type="text"
+              class="field__input"
+              [value]="formData().name"
+              (input)="updateField('name', $any($event.target).value)"
+              placeholder="Tu nombre"
+              autocomplete="name"
+              data-cursor="link" />
+            <div class="field__line"></div>
+          </div>
+
+          <!-- Email -->
+          <div class="field" [class.field--filled]="formData().email" [class.field--error]="emailValid() === false">
+            <label class="field__label mono">02 — ¿Dónde te escribo?</label>
+            <input
+              type="email"
+              class="field__input"
+              [value]="formData().email"
+              (input)="updateField('email', $any($event.target).value)"
+              placeholder="tu@email.com"
+              autocomplete="email"
+              data-cursor="link" />
+            <div class="field__line"></div>
+            @if (emailValid() === false) {
+              <span class="field__hint">Email no válido</span>
+            }
+          </div>
+
+          <!-- Project type -->
+          <div class="field">
+            <label class="field__label mono">03 — Tipo de proyecto</label>
+            <div class="chips">
+              @for (t of projectTypes; track t.id) {
+                <button
+                  type="button"
+                  class="chip"
+                  [class.chip--active]="formData().type === t.id"
+                  (click)="selectType(t.id)"
+                  data-cursor="link">
+                  {{ t.label }}
+                </button>
+              }
+            </div>
+          </div>
+
+          <!-- Budget -->
+          <div class="field">
+            <label class="field__label mono">04 — Presupuesto aprox.</label>
+            <div class="chips">
+              @for (b of budgetRanges; track b.id) {
+                <button
+                  type="button"
+                  class="chip"
+                  [class.chip--active]="formData().budget === b.id"
+                  (click)="selectBudget(b.id)"
+                  data-cursor="link">
+                  {{ b.label }}
+                </button>
+              }
+            </div>
+          </div>
+
+          <!-- Message -->
+          <div class="field" [class.field--filled]="formData().message">
+            <label class="field__label mono">05 — Cuéntame más</label>
+            <textarea
+              class="field__textarea"
+              [value]="formData().message"
+              (input)="updateField('message', $any($event.target).value)"
+              placeholder="Qué necesitas, plazos, contexto, lo que sea relevante..."
+              rows="5"
+              data-cursor="link"></textarea>
+            <div class="field__line"></div>
+            <span class="field__count mono">{{ formData().message.length }} / 500</span>
+          </div>
+
+          <!-- Submit -->
+          <div class="form__actions">
+            <button
+              type="submit"
+              magnetic
+              [strength]="0.25"
+              class="btn btn--primary btn--lg"
+              [disabled]="!isValid() || submitting()"
+              data-cursor="link">
+              @if (submitting()) {
+                <span class="spinner"></span>
+                <span>Enviando…</span>
+              } @else {
+                <span>Enviar mensaje</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              }
+            </button>
+
+            <span class="form__note mono">
+              O escríbeme directo a martin&#64;bymartin.dev
+            </span>
+          </div>
+        </form>
+      } @else {
+        <!-- Success state -->
+        <div class="success">
+          <div class="success__icon">
+            <svg viewBox="0 0 100 100" fill="none">
+              <circle cx="50" cy="50" r="48" stroke="currentColor" stroke-width="1"/>
+              <path d="M30 52L44 66L72 38" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h2 class="success__title display">
+            Mensaje <em>en camino.</em>
+          </h2>
+          <p class="success__text">
+            Te respondo apenas vea el mensaje. Mientras tanto, puedes seguir explorando o
+            agendar una llamada directa.
+          </p>
+          <div class="success__actions">
+            <button (click)="reset()" class="btn btn--ghost" data-cursor="link">
+              Enviar otro
+            </button>
+            <a routerLink="/projects" class="btn btn--primary" data-cursor="link">
+              Ver proyectos
+            </a>
+          </div>
         </div>
-      </div>
-      
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input id="email" type="email" formControlName="email" placeholder="tu.email&#64;ejemplo.com">
-        <div class="error-message" *ngIf="contactForm.get('email')?.errors?.['required'] && contactForm.get('email')?.touched">
-          El email es requerido
-        </div>
-        <div class="error-message" *ngIf="contactForm.get('email')?.errors?.['email'] && contactForm.get('email')?.touched">
-          Por favor ingresa un email válido
-        </div>
-      </div>
-      
-      <div class="form-group full-width">
-        <label for="message">Mensaje</label>
-        <textarea id="message" formControlName="message" placeholder="Cuéntame sobre tu proyecto o idea..."></textarea>
-        <div class="error-message" *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched">
-          El mensaje es requerido
-        </div>
-      </div>
-      
-      <button type="submit" [disabled]="!contactForm.valid">
-        Enviar Mensaje
-      </button>
-    </form>
-  </div>
-  
-  <!-- Información de contacto adicional -->
-  <div class="contact-info container">
-    <div class="info-card">
-      <i class="info-icon material-icons">email</i>
-      <h3>Email</h3>
-      <p>¿Prefieres enviarme un correo directamente?</p>
-      <a href="mailto:tu.email&#64;ejemplo.com">tu.email&#64;ejemplo.com</a>
+      }
     </div>
-    
-    <div class="info-card">
-      <i class="info-icon material-icons">location_on</i>
-      <h3>Ubicación</h3>
-      <p>Quito, Ecuador</p>
-      <p>Disponible para proyectos remotos en todo el mundo</p>
-    </div>
-    
-    <div class="info-card">
-      <i class="info-icon material-icons">schedule</i>
-      <h3>Horario</h3>
-      <p>Lunes - Viernes: 9am - 6pm</p>
-      <p>Respuesta promedio: 24h</p>
-    </div>
-  </div>
+
+    <!-- Channels sidebar -->
+    <aside class="channels-col">
+      <div class="channels glass">
+        <div class="channels__head">
+          <span class="mono">— OTROS CANALES</span>
+        </div>
+
+        @for (c of channels; track c.label) {
+          <a [href]="c.href" target="_blank" rel="noopener" class="channel" data-cursor="link">
+            <div class="channel__icon">
+              @switch (c.icon) {
+                @case ('mail') {
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="3" y="5" width="18" height="14" rx="2"/>
+                    <path d="M3 7l9 6 9-6" stroke-linecap="round"/>
+                  </svg>
+                }
+                @case ('linkedin') {
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.5 18.5v-7H6v7h2.5zM7.25 10.4a1.45 1.45 0 1 0 0-2.9 1.45 1.45 0 0 0 0 2.9zM18 18.5v-3.85c0-2.2-1.18-3.22-2.75-3.22-1.27 0-1.83.7-2.16 1.18v-1.01H10.6c.03.69 0 7.4 0 7.4h2.5v-4.13c0-.22.02-.45.08-.6.18-.45.6-.92 1.3-.92.91 0 1.27.7 1.27 1.7v3.95H18z"/>
+                  </svg>
+                }
+                @case ('github') {
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.5 2 2 6.5 2 12c0 4.4 2.9 8.2 6.8 9.5.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1 .8-.2 1.6-.3 2.5-.3s1.7.1 2.5.3c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.8v2.7c0 .3.2.6.7.5C19.1 20.2 22 16.4 22 12c0-5.5-4.5-10-10-10z"/>
+                  </svg>
+                }
+                @case ('calendar') {
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="3" y="5" width="18" height="16" rx="2"/>
+                    <path d="M3 9h18M8 3v4M16 3v4" stroke-linecap="round"/>
+                  </svg>
+                }
+              }
+            </div>
+            <div class="channel__body">
+              <span class="mono channel__label">{{ c.label }}</span>
+              <span class="channel__value">{{ c.value }}</span>
+            </div>
+            <span class="channel__arrow">↗</span>
+          </a>
+        }
+      </div>
+
+      <!-- FAQ -->
+      <div class="faq">
+        <h3 class="faq__title display">FAQ rápido</h3>
+
+        <details class="faq__item">
+          <summary>¿Cuándo puedes empezar?</summary>
+          <p>Normalmente tengo cupo en 1-2 semanas. Para algo urgente, conversamos.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary>¿Trabajas remoto?</summary>
+          <p>Sí, 100%. Estoy en Ecuador (GMT-5) pero coordino con cualquier zona horaria.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary>¿Manejas el proyecto completo?</summary>
+          <p>Frontend, backend y diseño UI/UX. Para infra DevOps trabajo con un partner.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary>¿Qué pasa después del envío?</summary>
+          <p>Te respondo en menos de 24 horas con preguntas y propuesta inicial.</p>
+        </details>
+      </div>
+    </aside>
+  </section>
+
+  <!-- Big closing -->
+  <section class="closing container">
+    <p class="closing__big display">
+      o si prefieres, <em>llamamos.</em>
+    </p>
+  </section>
+
 </div>
